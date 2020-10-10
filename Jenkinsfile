@@ -2,7 +2,7 @@ pipeline {
         agent any
         environment {
             registry = "inampudi2020dap/dockerk8pipeline"
-            registryCredential = 'DockerHub'
+            registryCredential = 'docker'
             dockerImage = ''
 		PROJECT_ID = 'dap-k8-cluster'
  		CLUSTER_NAME = 'dap-k8-cluster'
@@ -20,14 +20,14 @@ pipeline {
 		   stage('Build') { 
 	                steps {
 	                  echo "Cleaning and packaging..."
-			 // slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Build Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
+			 slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Build Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
 	                  sh 'mvn clean package'		
 	                }
 	           }
 		   stage('Test') { 
 			steps {
 		          echo "Testing..."
-		          //slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Test Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
+		          slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Test Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
 			  sh 'mvn test'
 			}
 		   }
