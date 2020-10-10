@@ -35,6 +35,7 @@ pipeline {
 			steps {
 	                   script {
 	                      dockerImage = docker.build registry + ":$BUILD_NUMBER"
+		              slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Build Docker Image', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
 	                   }
 	                }
 		   }
@@ -43,6 +44,7 @@ pipeline {
                     script {
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
+			slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Deploy Image', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
                     }
                     }
                 }
@@ -57,7 +59,7 @@ pipeline {
 				      clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml',
 				      credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
 				echo "Deployment Finished"
-				//slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Deployment Finished', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
+				slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Deploy to GKE', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
  	            }
 	          }
 	    }
