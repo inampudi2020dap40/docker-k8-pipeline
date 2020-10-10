@@ -20,14 +20,14 @@ pipeline {
 		   stage('Build') { 
 	                steps {
 	                  echo "Cleaning and packaging..."
-					  slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Build Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
+			 // slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Build Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
 	                  sh 'mvn clean package'		
 	                }
 	           }
 		   stage('Test') { 
 			steps {
 		          echo "Testing..."
-				  slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Test Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
+		          //slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Test Stage', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
 			  sh 'mvn test'
 			}
 		   }
@@ -57,7 +57,7 @@ pipeline {
 				      clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml',
 				      credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
 				echo "Deployment Finished"
-				slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Deployment Finished', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
+				//slackSend channel: 'ci-cd-pipeline', color: '#BADA55', message: 'Deployment Finished', teamDomain: 'dap40devops', tokenCredentialId: 'slack'
  	            }
 	          }
 	    }
